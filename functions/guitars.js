@@ -2,7 +2,7 @@ const { v4: uuidv4 } = require('uuid');
 const guitars = require('../guitarData.js');
 
 exports.handler = async (event) => {
-    const { httpMethod, body } = event;
+    const { httpMethod, body, queryStringParameters } = event;
 
     if (httpMethod === 'GET') {
         return {
@@ -22,8 +22,37 @@ exports.handler = async (event) => {
         };
     }
 
+    if (httpMethod === 'DELETE') {
+        const id = queryStringParameters?.id;
+
+        const guitarIndex = guitars.findIndex(
+            guitar => guitar.id === id
+        );
+
+        if (guitarIndex === -1) {
+            return {
+                statusCode: 404,
+                body: JSON.stringify({
+                    message: 'Guitar not found'
+                })
+            };
+        }
+
+        const deletedGuitar = guitars.splice(guitarIndex, 1)[0];
+
+        return {
+            statusCode: 200,
+            body: JSON.stringify({
+                message: 'Guitar deleted successfully',
+                guitar: deletedGuitar
+            })
+        };
+    }
+
     return {
         statusCode: 405,
-        body: JSON.stringify({ error: 'Method Not Allowed' })
+        body: JSON.stringify({
+            error: 'Method Not Allowed'
+        })
     };
 };
