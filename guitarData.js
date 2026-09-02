@@ -1,8 +1,6 @@
-const { v4: uuidv4 } = require('uuid');
-
 const guitars = [
     {
-        id: uuidv4(),
+        id: "1",
         brand: "Fender",
         model: "Stratocaster",
         color: "Sunburst",
@@ -10,7 +8,7 @@ const guitars = [
         price: 2500
     },
     {
-        id: uuidv4(),
+        id: "2",
         brand: "Gibson",
         model: "Les Paul",
         color: "Cherry Burst",
@@ -18,7 +16,7 @@ const guitars = [
         price: 5000
     },
     {
-        id: uuidv4(),
+        id: "3",
         brand: "PRS",
         model: "Custom 24",
         color: "Charcoal Burst",
